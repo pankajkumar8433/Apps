@@ -1,0 +1,72 @@
+public class BinaryTreeTraversal {
+
+    // Define TreeNode class
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Inorder traversal: Left -> Root -> Right
+    public void inorder(TreeNode root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.print(root.val + " ");
+            inorder(root.right);
+        }
+    }
+
+    // Preorder traversal: Root -> Left -> Right
+    public void preorder(TreeNode root) {
+        if (root != null) {
+            System.out.print(root.val + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    // Postorder traversal: Left -> Right -> Root
+    public void postorder(TreeNode root) {
+        if (root != null) {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.val + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        BinaryTreeTraversal tree = new BinaryTreeTraversal();
+
+        // Construct the tree:
+        //         1
+        //        / \
+        //       2   3
+        //      / \   \
+        //     4   5   6
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.right = new TreeNode(6);
+
+        // Perform and print traversals
+        System.out.print("Inorder Traversal: ");
+        tree.inorder(root);
+        System.out.println();
+
+        System.out.print("Preorder Traversal: ");
+        tree.preorder(root);
+        System.out.println();
+
+        System.out.print("Postorder Traversal: ");
+        tree.postorder(root);
+        System.out.println();
+    }
+}
