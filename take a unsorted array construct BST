@@ -1,0 +1,63 @@
+import java.util.LinkedList;
+import java.util.Queue;
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+class BST {
+    TreeNode root;
+
+    BST() {
+        this.root = null;
+    }
+    TreeNode sortedArrayToBST(int[] nums, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) / 2;
+        TreeNode node = new TreeNode(nums[mid]);
+
+        node.left = sortedArrayToBST(nums, start, mid - 1);
+        node.right = sortedArrayToBST(nums, mid + 1, end);
+
+        return node;
+    }
+    void levelOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            System.out.print(current.val + " ");
+
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+            }
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 2, 3, 4, 5, 6, 7};
+        BST bst = new BST();
+        bst.root = bst.sortedArrayToBST(sortedArray, 0, sortedArray.length - 1);
+
+        System.out.println("Level order traversal of BST:");
+        bst.levelOrder(bst.root);
+    }
+}
