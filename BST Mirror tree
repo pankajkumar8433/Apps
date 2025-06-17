@@ -1,0 +1,43 @@
+public class BSTMirror {
+    Node insert(Node root, int key) {
+        if (root == null) {
+            return new Node(key);
+        }
+        if (key < root.data) {
+            root.left = insert(root.left, key);
+        } else if (key > root.data) {
+            root.right = insert(root.right, key);
+        }
+        return root;
+    }
+    void inorder(Node root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
+    }
+    Node mirror(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node left = mirror(root.left);
+        Node right = mirror(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+    public static void main(String[] args) {
+        BSTMirror tree = new BSTMirror();
+        int[] values = {10, 9, 11, 7, 8, 6, 12, 15, 14};
+        Node root = null;
+        for (int value : values) {
+            root = tree.insert(root, value);
+        }
+        System.out.println("In-order traversal of original BST:");
+        tree.inorder(root);
+        root = tree.mirror(root);
+        System.out.println("\nIn-order traversal of mirrored BST:");
+        tree.inorder(root);
+    }
+}
