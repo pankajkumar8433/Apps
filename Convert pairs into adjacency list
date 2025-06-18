@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+public class AdjacencyListConverter {
+    public static Map<Integer, List<Integer>> convertToAdjacencyList(List<int[]> edges) {
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+
+            // Add u to v's adjacency list
+            adjList.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+
+            // Add v to u's adjacency list (for undirected graph)
+            adjList.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+        }
+        return adjList;
+    }
+
+    /**
+     * Prints the adjacency list in a readable format.
+     *
+     * @param adjList The adjacency list to print.
+     */
+    public static void printAdjacencyList(Map<Integer, List<Integer>> adjList) {
+        System.out.println("Adjacency List:");
+        for (Map.Entry<Integer, List<Integer>> entry : adjList.entrySet()) {
+            System.out.print(entry.getKey() + " -> ");
+            System.out.println(entry.getValue());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        List<int[]> edges = new ArrayList<>();
+        edges.add(new int[]{0, 1});
+        edges.add(new int[]{0, 4});
+        edges.add(new int[]{1, 2});
+        edges.add(new int[]{1, 3});
+        edges.add(new int[]{1, 4});
+        edges.add(new int[]{2, 3});
+        edges.add(new int[]{3, 4});
+
+        Map<Integer, List<Integer>> adjList = convertToAdjacencyList(edges);
+        printAdjacencyList(adjList);
+    }
+}
